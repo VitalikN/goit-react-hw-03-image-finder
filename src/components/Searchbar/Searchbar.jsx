@@ -9,7 +9,7 @@ export class Searchbar extends Component {
   };
   handleSearch = evt => {
     this.setState({ nameSearch: evt.target.value.toLowerCase() });
-    console.log(evt.currentTarget.value);
+    console.log(evt.target.value);
   };
   handleSubmit = evt => {
     evt.preventDefault();
