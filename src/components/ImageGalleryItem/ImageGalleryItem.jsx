@@ -4,9 +4,10 @@ export class ImageGalleryItem extends Component {
   state = {};
 
   render() {
+    const { id, src } = this.props;
     return (
-      <li className="gallery-item">
-        <img src={this.props.imageGallery} width="200px" alt="" />
+      <li className="gallery-item" key={id}>
+        <img src={src} alt="" />
       </li>
     );
   }

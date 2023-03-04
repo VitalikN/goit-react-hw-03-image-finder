@@ -1,21 +1,40 @@
 import { React, Component } from 'react';
 import { Toaster } from 'react-hot-toast';
-// import { fetchGallery } from './fetch/fetch';
+import { Container } from './App.styled';
+import { fetchGallery } from './fetch/fetch';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Searchbar } from './Searchbar/Searchbar';
+import { Button } from './Button/Button';
 
 export class App extends Component {
   state = {
-    // imageGallery: null,
+    imageGallery: [],
     searchQuery: '',
     Loader: false,
+    page: 1,
   };
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.searchQuery !== this.props.searchQuery) {
-      console.log('prev', prevProps.searchQuery);
-      console.log(this.props.searchQuery);
+    if (
+      prevState.searchQuery !== this.state.searchQuery ||
+      prevState.page !== this.state.page
+    ) {
+      this.imgGalleryList(this.state.searchQuery, this.state.page);
     }
   }
+  imgGalleryList = async (searchQuery, page) => {
+    try {
+      const {
+        hits,
+        // total, totalHits
+      } = await fetchGallery(searchQuery, page);
+      this.setState(prev => ({
+        imageGallery: [...prev.imageGallery, ...hits],
+      }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // componentDidUpdate(prevProps, prevState) {
   //   if (prevProps.nameSearch !== this.props.nameSearch) {
   //     console.log('prev', prevProps.nameSearch);
@@ -32,20 +51,16 @@ export class App extends Component {
   // this.setState({ Loader: true });
   // }
   handleSubmit = nameSearch => {
-    this.setState({ searchQuery: nameSearch, hits: [] });
+    this.setState({ searchQuery: nameSearch });
   };
 
+  loadMore = () => {
+    this.setState(prev => ({ page: prev.page + 1 }));
+  };
   render() {
+    const { imageGallery } = this.state;
     return (
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          margin: '30px',
-        }}
-      >
+      <Container>
         <Toaster
           position="top-right"
           toastOptions={{
@@ -58,12 +73,10 @@ export class App extends Component {
           }}
         />
         <Searchbar onSearch={this.handleSubmit} />
-
         {this.state.Loader && <p>Loader...</p>}
-        {this.state.nameSearch && (
-          <ImageGallery imageGallery={this.state.nameSearch} />
-        )}
-      </div>
+        {this.state.searchQuery && <ImageGallery imageGallery={imageGallery} />}
+        <button onClick={this.loadMore}>loadMore</button>
+      </Container>
     );
   }
 }
