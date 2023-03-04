@@ -64,6 +64,7 @@ export class App extends Component {
   onModalClose = () => {
     this.setState({ largeUrl: null, tag: null });
   };
+
   openModal = (url, alt) => this.setState({ largeUrl: url, tag: alt });
 
   render() {
