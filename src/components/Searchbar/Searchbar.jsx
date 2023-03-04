@@ -5,6 +5,7 @@ import {
   SearchForm,
   SearchFormButton,
   SearchFormButtonLabel,
+  Input,
 } from './Searchbar.styled';
 
 export class Searchbar extends Component {
@@ -17,29 +18,32 @@ export class Searchbar extends Component {
 
   handleSubmit = evt => {
     evt.preventDefault();
-    if (this.state.nameSearch.trim() === '') {
+    const { nameSearch } = this.state;
+    if (nameSearch.trim() === '') {
       toast.error('Here is your toast.');
       return;
     }
-    this.props.onSearch(this.state.nameSearch);
+    this.props.onSearch(nameSearch);
     this.setState({ nameSearch: '' });
   };
 
   render() {
+    const { nameSearch } = this.state;
+    const { handleSubmit, handleSearch } = this;
     return (
       <Header>
-        <SearchForm onSubmit={this.handleSubmit}>
+        <SearchForm onSubmit={handleSubmit}>
           <SearchFormButton type="submit">
             <SearchFormButtonLabel>Search</SearchFormButtonLabel>
           </SearchFormButton>
 
-          <input
+          <Input
             type="text"
             autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
-            value={this.state.nameSearch}
-            onChange={this.handleSearch}
+            value={nameSearch}
+            onChange={handleSearch}
           />
         </SearchForm>
       </Header>

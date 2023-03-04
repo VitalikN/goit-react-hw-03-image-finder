@@ -1,18 +1,20 @@
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
-import React, { Component } from 'react';
+
 import { GalleryList } from './imageGallery.styled';
-
-export class ImageGallery extends Component {
-  state = {};
-
-  render() {
-    const { imageGallery } = this.props;
-    return (
-      <GalleryList className="gallery">
-        {imageGallery.map(({ id, webformatURL }) => {
-          return <ImageGalleryItem key={id} src={webformatURL} />;
-        })}
-      </GalleryList>
-    );
-  }
-}
+// import { nanoid } from 'nanoid';
+export const ImageGallery = ({ imageGallery, onOpenModal }) => {
+  // const id = nanoid();
+  // // key = { id };
+  return (
+    <GalleryList className="gallery">
+      {imageGallery.map(({ id, webformatURL, tags, largeImageURL }) => (
+        <ImageGalleryItem
+          key={id}
+          src={webformatURL}
+          alt={tags}
+          openModal={() => onOpenModal(largeImageURL, tags)}
+        />
+      ))}
+    </GalleryList>
+  );
+};

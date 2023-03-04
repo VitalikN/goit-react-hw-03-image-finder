@@ -1,14 +1,9 @@
-import { Component } from 'react';
+import { Item, Img } from './ImageGalleryItem.styled';
 
-export class ImageGalleryItem extends Component {
-  state = {};
-
-  render() {
-    const { id, src } = this.props;
-    return (
-      <li className="gallery-item" key={id}>
-        <img src={src} alt="" />
-      </li>
-    );
-  }
-}
+export const ImageGalleryItem = ({ src, alt, openModal }) => {
+  return (
+    <Item onClick={openModal}>
+      <Img src={src} alt={alt} />
+    </Item>
+  );
+};
