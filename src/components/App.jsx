@@ -1,11 +1,12 @@
 import { React, Component } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { Container, Chip, Btn, Text } from './App.styled';
+import { Container, Chip, Text } from './App.styled';
 import { fetchGallery } from './fetch/fetch';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Spinner } from './Spinner/Spinner';
 import { Searchbar } from './Searchbar/Searchbar';
 import { Modal } from './Modal/Modal';
+import { Button } from './Button/Button';
 
 export class App extends Component {
   state = {
@@ -100,7 +101,7 @@ export class App extends Component {
         {largeUrl && <Modal url={largeUrl} alt={tag} onClose={onModalClose} />}
 
         {isLoader && <Chip> {Spinner()} </Chip>}
-        {isVisible && <Btn onClick={loadMore}>loadMore</Btn>}
+        {isVisible && <Button loadMore={loadMore} />}
 
         {isEmpty && <Text> Sorry. There are no images ... </Text>}
         {error && <Text> Something went wrong. Try again later.😭 </Text>}

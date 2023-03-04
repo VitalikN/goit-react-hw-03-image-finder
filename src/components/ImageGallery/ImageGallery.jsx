@@ -1,10 +1,8 @@
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
-
 import { GalleryList } from './imageGallery.styled';
-// import { nanoid } from 'nanoid';
+import PropTypes from 'prop-types';
+
 export const ImageGallery = ({ imageGallery, onOpenModal }) => {
-  // const id = nanoid();
-  // // key = { id };
   return (
     <GalleryList className="gallery">
       {imageGallery.map(({ id, webformatURL, tags, largeImageURL }) => (
@@ -17,4 +15,14 @@ export const ImageGallery = ({ imageGallery, onOpenModal }) => {
       ))}
     </GalleryList>
   );
+};
+ImageGallery.propTypes = {
+  imageGallery: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      webformatURL: PropTypes.string.isRequired,
+      tags: PropTypes.string.isRequired,
+      largeImageURL: PropTypes.string.isRequired,
+    })
+  ),
 };

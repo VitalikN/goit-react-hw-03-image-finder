@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { BiSearchAlt2 } from 'react-icons/bi';
 import { toast } from 'react-hot-toast';
+import PropTypes from 'prop-types';
 import {
   Header,
   SearchForm,
@@ -34,7 +36,8 @@ export class Searchbar extends Component {
       <Header>
         <SearchForm onSubmit={handleSubmit}>
           <SearchFormButton type="submit">
-            <SearchFormButtonLabel>Search</SearchFormButtonLabel>
+            <BiSearchAlt2 />
+            <SearchFormButtonLabel></SearchFormButtonLabel>
           </SearchFormButton>
 
           <Input
@@ -50,3 +53,6 @@ export class Searchbar extends Component {
     );
   }
 }
+SearchForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};

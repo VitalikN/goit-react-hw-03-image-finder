@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { createPortal } from 'react-dom';
-
+import PropTypes from 'prop-types';
 import { Box, ModalContent } from './Modal.styled';
 
 const modalRoot = document.querySelector('#modal-root');
@@ -39,3 +39,6 @@ export class Modal extends Component {
     );
   }
 }
+Box.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};
