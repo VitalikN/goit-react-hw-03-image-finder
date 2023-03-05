@@ -32,6 +32,7 @@ export class App extends Component {
     this.setState({ isLoader: true });
     try {
       const { hits, total } = await fetchGallery(searchQuery, page);
+
       if (hits.length === 0) {
         this.setState({ isEmpty: true });
       }
@@ -97,10 +98,9 @@ export class App extends Component {
         {searchQuery && (
           <ImageGallery imageGallery={imageGallery} onOpenModal={openModal} />
         )}
-
         {largeUrl && <Modal url={largeUrl} alt={tag} onClose={onModalClose} />}
-
         {isLoader && <Chip> {Spinner()} </Chip>}
+
         {isVisible && <Button loadMore={loadMore} />}
 
         {isEmpty && <Text> Sorry. There are no images ... </Text>}
