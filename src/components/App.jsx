@@ -31,14 +31,14 @@ export class App extends Component {
   imgGalleryList = async (searchQuery, page) => {
     this.setState({ isLoader: true });
     try {
-      const { hits, total } = await fetchGallery(searchQuery, page);
+      const { hits, totalHits } = await fetchGallery(searchQuery, page);
 
       if (hits.length === 0) {
         this.setState({ isEmpty: true });
       }
       this.setState(prev => ({
         imageGallery: [...prev.imageGallery, ...hits],
-        isVisible: page < Math.ceil(total / hits.length),
+        isVisible: page < Math.ceil(totalHits / 12),
       }));
     } catch (error) {
       this.setState({ error: error.message });
